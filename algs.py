@@ -16,8 +16,26 @@ n = 4
 print('Result when n is', n, 'is: ', iter_factorial(n))
 
 
-# def rec_factorial(n):
+def rec_factorial(n):
+    # base case, n=1
+    if n == 1 or n == 0:
+        return 1
 
-# def iter_fib(n):
+    # recursive cases, when n>1
+    else:
+        return n * rec_factorial(n-1)
+
+print('Result when recursive n is', n, 'is: ', rec_factorial(n))
+
+def iter_fib(n):
+    if n == 0:
+        return 0
+    
+    if n == 1:
+        return 1
+    
+    return iter_fib(n-1) + iter_fib(n-2)
+
+print('Result when iter_fib n is', n, 'is: ', iter_fib(n))
 
 # def rec_fib(n):

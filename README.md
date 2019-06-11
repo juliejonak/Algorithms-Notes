@@ -159,6 +159,117 @@ because some processes can be deceptively efficient with small
 values, but that doesn't account for scalability.
 ```
 
+##### Recursive Solution
+
+Think of the base case when considering how to solve something recursively (the very smallest case).
+
+We could build a plan like so:
+
+```
+def rec_factorial(n):
+    # base case, n=1
+
+    # recursive cases, when n>1
+```
+
+We should also consider, what about case when n=0:
+
+```
+def rec_factorial(n):
+    # base case, n=1
+    if n == 1 or n == 0:
+        return 1
+
+    # recursive cases, when n>1
+
+```
+
+So with our base case, we know _when_ to stop, but we need to make sure with our recursive step, we're doing something to _get to the base case_. We need to use n-1.
+
+```
+def rec_factorial(n):
+    # base case, n=1
+    if n == 1 or n == 0:
+        return 1
+
+    # recursive cases, when n>1
+    else:
+        rec_factorial(n-1)
+```
+
+Now, we're decreasing n but we still need to multiply the result by n:
+
+```
+def rec_factorial(n):
+    # base case, n=1
+    if n == 1 or n == 0:
+        return 1
+
+    # recursive cases, when n>1
+    else:
+        return n * rec_factorial(n-1)
+```
+
+What is the runtime evaluation?
+
+There are no loops but we do have a recursive function call. When we see a recursive call, we want to visualize, "How many times will this recursive function call be made?"
+
+In memory, all these calls are being _made_ but not _finishing_ until the base case is resolved. rec_factorial(3) has to wait on rec_factorial(2) to resolve, which waits for rec_factorial(1) to resolve.
+
+In this case, the number of recursive calls being made increases by one every time n increases by one, so this resolves to O(n) or linear time still.
+
+While this may be time efficient though, it is not memory (space) efficient due to the open, waiting function calls that stack while waiting to hit the base case resolution.
+
+#### Fibonacci Sequence
+
+We can practice solving using dynamic programming techniques with the Fibonacci sequence.
+
+Learn more here: https://en.wikipedia.org/wiki/Fibonacci_number
+
+In math, the Fibonacci sequence is numbers in order, where each number is the sum of the two preceding one, starting from 0 and 1.
+
+```
+F0 = 0 F1 = 1 F2 = 1 (0 + 1) F3 = 2 (1 + 1) F4 = 3 (2 + 1)
+```
+
+And so on.
+
+0 and 1 are our base cases.
+
+A basic way of writing it might look like this:
+
+```
+fib(0) = 0
+fib(1) = 1
+fib(n) = fib(n-1) + fib(n-2)
+```
+
+So let's define the function and call it recursively:
+
+```
+def fib(n):
+    if n == 0:
+        return 0
+    
+    if n == 1:
+        return 1
+    
+    return fib(n-1) + fib(n-2)
+
+for i in range(10):
+    print(fib(i))
+```
+
+This works and outputs the first 10 Fibonacci number.
+
+Recursive solutions work and can make sense. But if we try to run it for range(30), our terminal will drastically slow down, due to the poor run time of this algorithm.
+
+Go in depth on Fibonacci here: http://www.maths.surrey.ac.uk/hosted-sites/R.Knott/Fibonacci/fibmaths.html
+
+This is an example of O(2^n) runtime because for each additional input, the operations computed grow exponentially.
+
+
+
 
 
 
